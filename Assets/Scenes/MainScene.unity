@@ -287,6 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400663668}
   - component: {fileID: 400663667}
+  - component: {fileID: 400663669}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1489fae9bb156e67c92612e27145ff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7698369636543313094, guid: 5686c1392eba66360b771155ceb11f7e, type: 3}
+  playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
   forwardSpeed: 10
   laneDistance: 4
   laneChangeSpeed: 10
@@ -334,6 +335,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400663669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400663666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ea157f7c0085be7b63c628b219f113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 3555129088345802245, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
+  numberOfTiles: 6
+  tileLength: 30
+  scrollSpeed: 10
 --- !u!1 &406013761
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,63 +545,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1001 &7653576058578695962
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3555129088345802245, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_Name
-      value: ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -592,5 +552,4 @@ SceneRoots:
   - {fileID: 212255078}
   - {fileID: 406013762}
   - {fileID: 400663668}
-  - {fileID: 7653576058578695962}
   - {fileID: 605671082}
