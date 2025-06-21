@@ -317,7 +317,7 @@ MonoBehaviour:
   ground: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
   groundLength: 20
   obstaclePrefabs:
-  - {fileID: 1170414190264952437, guid: 01cdeb16234460b7484c785c9e8ca138, type: 3}
+  - {fileID: 2952796528952022713, guid: c83a333ef0104f007b14cd0976ad1d72, type: 3}
   distanceBetween: 15
   scoreText: {fileID: 102578208}
 --- !u!4 &400663668
