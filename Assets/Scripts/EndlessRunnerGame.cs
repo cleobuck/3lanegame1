@@ -28,7 +28,6 @@ public class EndlessRunnerGame : MonoBehaviour
     public Transform ground; // Reference to the ground plane that will move
     public float groundLength = 20f; // Length of the ground plane (for repositioning)
     private float worldDistance = 0f; // How far the world has "moved" (for score)
-    private List<GameObject> groundTiles = new List<GameObject>(); // Track multiple ground tiles
     private int numberOfGroundTiles = 5; // How many ground tiles to maintain
 
     // -------------------- Obstacle Spawning --------------------
@@ -78,66 +77,10 @@ public class EndlessRunnerGame : MonoBehaviour
             mainCamera.LookAt(player); // Make the camera look at the player
             camOffset = mainCamera.position - player.position; // Store this offset
         }
-        
-        // Set up infinite ground system
-        SetupInfiniteGround();
+      
     }
     
-    // -------------------- Setup infinite ground tiles --------------------
-    void SetupInfiniteGround()
-    {
-        if (ground != null)
-        {
-            // Try multiple methods to get the correct ground size
-            Renderer groundRenderer = ground.GetComponent<Renderer>();
-            MeshFilter meshFilter = ground.GetComponent<MeshFilter>();
-            
-            if (groundRenderer != null)
-            {
-                groundLength = groundRenderer.bounds.size.z; // Use actual ground size
-                Debug.Log($"Auto-detected ground length: {groundLength}");
-                Debug.Log($"Ground bounds: {groundRenderer.bounds}");
-                Debug.Log($"Ground scale: {ground.transform.localScale}");
-                Debug.Log($"Ground position: {ground.transform.position}");
-            }
-            
-            // Unity's default plane is 10x10 units, check if we need to override
-            if (meshFilter != null && meshFilter.sharedMesh.name.Contains("Plane"))
-            {
-                // Unity default plane is 10 units, but scaled by transform
-                float actualSize = 10f * ground.transform.localScale.z;
-                Debug.Log($"Detected Unity plane, calculated size: {actualSize}");
-                groundLength = actualSize;
-            }
-            
-            // Slightly overlap tiles to prevent gaps
-            float tileSpacing = groundLength * 0.99f; // 1% overlap
-            
-            // Add the original ground to our tracking list
-            groundTiles.Add(ground.gameObject);
-            
-            // Create additional ground tiles extending forward (with slight overlap)
-            for (int i = 1; i < numberOfGroundTiles; i++)
-            {
-                GameObject newTile = Instantiate(ground.gameObject);
-                // Position tiles with slight overlap to prevent gaps
-                Vector3 newPosition = ground.position + new Vector3(0, 0, i * tileSpacing);
-                newTile.transform.position = newPosition;
-                newTile.name = $"GroundTile_{i}"; // Name them for easier debugging
-                groundTiles.Add(newTile);
-                
-                Debug.Log($"Created tile {i} at position: {newPosition} (spacing: {tileSpacing})");
-            }
-            
-            Debug.Log($"Created {numberOfGroundTiles} ground tiles, each {groundLength} units long, spaced {tileSpacing} apart");
-            
-            // Debug: Show all tile positions
-            for (int i = 0; i < groundTiles.Count; i++)
-            {
-                Debug.Log($"Tile {i} final position: {groundTiles[i].transform.position}");
-            }
-        }
-    }
+
     
     // -------------------- Update() runs every frame --------------------
     void Update()
@@ -254,7 +197,7 @@ public class EndlessRunnerGame : MonoBehaviour
             // Pick a random obstacle prefab
             GameObject obstacle = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
             // Random lane X-position, Y = same as player height, Z = ahead of player
-            Vector3 spawnPos = new Vector3(RandomLaneX(), 1, spawnZ);
+            Vector3 spawnPos = new Vector3(RandomLaneX(), 3.4f, spawnZ);
             GameObject spawnedObstacle = Instantiate(obstacle, spawnPos, Quaternion.identity);
             
             // Track the spawned obstacle in our list

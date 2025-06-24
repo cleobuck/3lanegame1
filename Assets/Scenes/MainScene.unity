@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
   forwardSpeed: 10
-  laneDistance: 4
+  laneDistance: 6
   laneChangeSpeed: 10
   jumpForce: 8
   gravity: -20
@@ -347,7 +347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ea157f7c0085be7b63c628b219f113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 3555129088345802245, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
+  tilePrefab: {fileID: 3555129088345802245, guid: 482b79a15d4b3b1ac85bfe4c7b369511, type: 3}
+  collisionPrefab: {fileID: 0}
   numberOfTiles: 6
   tileLength: 30
   scrollSpeed: 10
