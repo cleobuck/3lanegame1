@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 400663668}
   - component: {fileID: 400663667}
   - component: {fileID: 400663669}
+  - component: {fileID: 400663670}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -228,18 +229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1489fae9bb156e67c92612e27145ff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
   forwardSpeed: 10
-  laneDistance: 6
+  playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
   laneChangeSpeed: 10
-  jumpForce: 8
-  gravity: -20
+  jumpForce: 25
+  gravity: -40
   mainCamera: {fileID: 406013762}
-  ground: {fileID: 3773759083605727442, guid: 1e4a1a4b4109d1ef6a234fda115329c0, type: 3}
-  groundLength: 20
-  obstaclePrefabs:
-  - {fileID: 2952796528952022713, guid: c83a333ef0104f007b14cd0976ad1d72, type: 3}
-  distanceBetween: 15
   scoreText: {fileID: 102578208}
 --- !u!4 &400663668
 Transform:
@@ -268,11 +263,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ea157f7c0085be7b63c628b219f113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardSpeed: 10
   tilePrefab: {fileID: 3555129088345802245, guid: 482b79a15d4b3b1ac85bfe4c7b369511, type: 3}
   collisionPrefab: {fileID: 0}
   numberOfTiles: 6
   tileLength: 30
-  scrollSpeed: 10
+  obstaclePrefabs:
+  - {fileID: 2952796528952022713, guid: c83a333ef0104f007b14cd0976ad1d72, type: 3}
+  distanceBetween: 15
+--- !u!114 &400663670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400663666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650f87c02fce9a036b203e214883d9ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 43.2
 --- !u!1 &406013761
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI; // For working with the UI (Text score display)
 using System.Collections.Generic;
 
-public class EndlessRunnerGame : MonoBehaviour
+public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase instead of MonoBehaviour
 {
     // -------------------- Player Settings --------------------
     [Header("Player")]
@@ -10,12 +10,11 @@ public class EndlessRunnerGame : MonoBehaviour
     private CharacterController controller; // Controls player movement and handles collisions (filled at runtime)
     private Transform player; // Reference to the player's position in the scene (filled at runtime)
 
-    public float forwardSpeed = 10f; // How fast the world moves towards the player
-    public float laneDistance = 4f; // Distance between lanes (used for switching left/right)
+    // laneDistance is now inherited from GameBase
     private int desiredLane = 1; // The lane the player wants to be in: 0 = left, 1 = center, 2 = right
     public float laneChangeSpeed = 10f; // How fast the player switches lanes
-    public float jumpForce = 8f; // How high the player jumps
-    public float gravity = -20f; // Gravity applied when falling
+    public float jumpForce = 25f; // How high the player jumps
+    public float gravity = -40f; // Gravity applied when falling
     private Vector3 direction; // Stores the player's movement direction
 
     // -------------------- Camera Settings --------------------
@@ -23,33 +22,19 @@ public class EndlessRunnerGame : MonoBehaviour
     public Transform mainCamera; // Reference to the main camera in the scene
     private Vector3 camOffset; // The camera's offset from the player (used to follow smoothly)
 
-    // -------------------- World Movement --------------------
-    [Header("World Movement")]
-    public Transform ground; // Reference to the ground plane that will move
-    public float groundLength = 20f; // Length of the ground plane (for repositioning)
-    private float worldDistance = 0f; // How far the world has "moved" (for score)
-    private int numberOfGroundTiles = 5; // How many ground tiles to maintain
-
-    // -------------------- Obstacle Spawning --------------------
-    [Header("Obstacles")]
-    public GameObject[] obstaclePrefabs; // Array of obstacle prefabs that can be randomly spawned
-    public float distanceBetween = 15f; // Distance between each obstacle spawn
-    private float spawnZ = 30f; // Z-position where the next obstacle will spawn
-    private List<GameObject> spawnedObstacles = new List<GameObject>(); // Track spawned obstacles
-
     // -------------------- UI and Score --------------------
     [Header("UI")]
     public Text scoreText; // Reference to the UI text that displays the score
-    private float score; // The current score (based on distance run)
+    // score is now inherited as gameScore from GameBase
 
     // -------------------- Start() is called when the game begins --------------------
-    void Start()
+    protected override void Start() // Override the base Start method
     {
+        base.Start(); // Call the parent's Start method first
         
         // If no player exists yet, spawn the player from the prefab
         if (player == null && playerPrefab != null)
         {
-            
             // Spawn player at a fixed position (they won't move forward)
             Vector3 playerPosition = new Vector3(0, 1, 0); // Slightly above ground
             GameObject spawned = Instantiate(playerPrefab, playerPosition, Quaternion.identity);
@@ -66,25 +51,22 @@ public class EndlessRunnerGame : MonoBehaviour
             
             // Ensure the controller is enabled
             if (controller != null) controller.enabled = true;
-           
         }
   
         // Set up the camera to be behind and above the player (fixed position)
         if (mainCamera != null && player != null)
         {
-          
             mainCamera.position = player.position + new Vector3(0, 5, -10); // Fixed offset from player
             mainCamera.LookAt(player); // Make the camera look at the player
             camOffset = mainCamera.position - player.position; // Store this offset
         }
-      
     }
-    
 
-    
     // -------------------- Update() runs every frame --------------------
-    void Update()
+    protected override void Update() // Override the base Update method
     {
+        base.Update(); // Call the parent's Update method first
+        
         // If something went wrong and player/controller aren't set, stop running logic
         if (player == null || controller == null || !controller.enabled ) 
         {
@@ -94,21 +76,20 @@ public class EndlessRunnerGame : MonoBehaviour
         RunLogic();       // Handle movement and jumping
         CameraFollow();   // Make camera follow player
         ScoreUpdate();    // Update the score based on distance
-        SpawnObstacles(); // Spawn obstacles ahead of the player
     }
 
     // -------------------- Player movement and jumping --------------------
     void RunLogic()
     {
-        // Move the world towards the player (creating forward movement illusion)
-        MoveWorld();
-        
         // Handle lane switching with left/right arrow keys
         if (Input.GetKeyDown(KeyCode.RightArrow)) desiredLane = Mathf.Min(desiredLane + 1, 2);
         if (Input.GetKeyDown(KeyCode.LeftArrow)) desiredLane = Mathf.Max(desiredLane - 1, 0);
 
-        // Calculate target X position based on desired lane
-        float targetX = (desiredLane - 1) * laneDistance; // -1 * 4 = -4 (left), 0 * 4 = 0 (center), 1 * 4 = 4 (right)
+        // Update the shared current lane
+        CurrentLane = desiredLane;
+
+        // Calculate target X position based on desired lane using inherited method
+        float targetX = LaneToWorldX(desiredLane); // Use inherited helper method
         
         // Smoothly move towards target lane (only X movement)
         Vector3 currentPos = player.position;
@@ -118,7 +99,7 @@ public class EndlessRunnerGame : MonoBehaviour
         if (controller.isGrounded)
         {
             direction.y = -1f; // Stick to the ground
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
                 direction.y = jumpForce; // Jump!
         }
         else
@@ -140,36 +121,6 @@ public class EndlessRunnerGame : MonoBehaviour
         }
     }
 
-    // -------------------- Move the world towards the player --------------------
-    void MoveWorld()
-    {
-        float moveDistance = forwardSpeed * Time.deltaTime;
-        worldDistance += moveDistance;
-
-        // Move all tracked obstacles towards the player
-        for (int i = spawnedObstacles.Count - 1; i >= 0; i--)
-        {
-            GameObject obstacle = spawnedObstacles[i];
-            
-            if (obstacle != null)
-            {
-                obstacle.transform.position += Vector3.back * moveDistance;
-                
-                // Destroy obstacles that have passed the player
-                if (obstacle.transform.position.z < player.position.z - 20f)
-                {
-                    Destroy(obstacle);
-                    spawnedObstacles.RemoveAt(i); // Remove from tracking list
-                }
-            }
-            else
-            {
-                // Remove null references from the list
-                spawnedObstacles.RemoveAt(i);
-            }
-        }
-    }
-
     // -------------------- Make the camera follow the player --------------------
     void CameraFollow()
     {
@@ -184,34 +135,10 @@ public class EndlessRunnerGame : MonoBehaviour
     // -------------------- Update and display the score --------------------
     void ScoreUpdate()
     {
-        score = worldDistance; // Score based on how far the world has moved
+        // Use inherited GameScore property instead of local score variable
         if (scoreText != null)
-            scoreText.text = "Score: " + Mathf.FloorToInt(score).ToString(); // Update UI text
+            scoreText.text = "Score: " + Mathf.FloorToInt(GameScore).ToString(); // Update UI text
     }
 
-    // -------------------- Spawn obstacles in front of the player --------------------
-    void SpawnObstacles()
-    {
-        if (obstaclePrefabs.Length > 0 && worldDistance + 30f > spawnZ) // Spawn based on world distance
-        {
-            // Pick a random obstacle prefab
-            GameObject obstacle = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-            // Random lane X-position, Y = same as player height, Z = ahead of player
-            Vector3 spawnPos = new Vector3(RandomLaneX(), 3.4f, spawnZ);
-            GameObject spawnedObstacle = Instantiate(obstacle, spawnPos, Quaternion.identity);
-            
-            // Track the spawned obstacle in our list
-            spawnedObstacles.Add(spawnedObstacle);
-            
-            spawnZ += distanceBetween; // Move spawnZ forward for the next one
-        }
-    }
-
-    // -------------------- Pick a random lane (-1, 0, 1) for X-position --------------------
-    float RandomLaneX()
-    {
-        int lane = Random.Range(0, 3); // Random lane index: 0 = left, 1 = center, 2 = right
-        return (lane - 1) * laneDistance; // Convert to X-position: -laneDistance, 0, +laneDistance
-    }
-}
-
+    // RandomLaneX method is now inherited from GameBase
+} 
