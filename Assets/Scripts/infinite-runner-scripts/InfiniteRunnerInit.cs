@@ -12,7 +12,7 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
 
     // laneDistance is now inherited from GameBase
     private int desiredLane = 1; // The lane the player wants to be in: 0 = left, 1 = center, 2 = right
-    public float laneChangeSpeed = 10f; // How fast the player switches lanes
+    public float laneChangeSpeed = 20f; // How fast the player switches lanes
     public float jumpForce = 25f; // How high the player jumps
     public float gravity = -40f; // Gravity applied when falling
     private Vector3 direction; // Stores the player's movement direction
