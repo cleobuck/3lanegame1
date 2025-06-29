@@ -37,43 +37,43 @@ public class EnemyController : MonoBehaviour
     
     private void Start()
     {
-        // Get animator if not assigned
-        if (animator == null)
-            animator = GetComponent<Animator>();
+        // // Get animator if not assigned
+        // if (animator == null)
+        //     animator = GetComponent<Animator>();
             
-        // Start with appropriate animation
-        if (animator != null)
-        {
-            if (isObstacle && playWalkAnimationAsObstacle && !string.IsNullOrEmpty(walkAnimationName))
-            {
-                animator.Play(walkAnimationName);
-            }
-            else if (!string.IsNullOrEmpty(idleAnimationName))
-            {
-                animator.Play(idleAnimationName);
-            }
-        }
+        // // Start with appropriate animation
+        // if (animator != null)
+        // {
+        //     if (isObstacle && playWalkAnimationAsObstacle && !string.IsNullOrEmpty(walkAnimationName))
+        //     {
+        //         animator.Play(walkAnimationName);
+        //     }
+        //     else if (!string.IsNullOrEmpty(idleAnimationName))
+        //     {
+        //         animator.Play(idleAnimationName);
+        //     }
+        // }
     }
     
     private void Update()
     {
         // Only handle movement if not an obstacle (ObstacleManager handles obstacle movement)
-        if (!isObstacle)
-        {
-            HandleNonObstacleMovement();
-        }
-        // If it's an obstacle, just maintain animation - movement is handled by ObstacleManager
+        // if (!isObstacle)
+        // {
+        //     HandleNonObstacleMovement();
+        // }
+        // // If it's an obstacle, just maintain animation - movement is handled by ObstacleManager
         
-        // Lock Y position if enabled and we're an obstacle
-        if (isObstacle && lockYPosition)
-        {
-            Vector3 pos = transform.position;
-            if (Mathf.Abs(pos.y - lockedYPosition) > 0.01f) // Only adjust if it's moved significantly
-            {
-                pos.y = lockedYPosition;
-                transform.position = pos;
-            }
-        }
+        // // Lock Y position if enabled and we're an obstacle
+        // if (isObstacle && lockYPosition)
+        // {
+        //     Vector3 pos = transform.position;
+        //     if (Mathf.Abs(pos.y - lockedYPosition) > 0.01f) // Only adjust if it's moved significantly
+        //     {
+        //         pos.y = lockedYPosition;
+        //         transform.position = pos;
+        //     }
+        // }
     }
     
     private void HandleNonObstacleMovement()
