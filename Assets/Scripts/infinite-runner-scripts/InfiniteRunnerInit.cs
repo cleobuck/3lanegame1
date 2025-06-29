@@ -10,6 +10,7 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
     private CharacterController controller; // Controls player movement and handles collisions (filled at runtime)
     private Transform player; // Reference to the player's position in the scene (filled at runtime)
 
+    private Animator playerAnimator; // Add this variable
     // laneDistance is now inherited from GameBase
     private int desiredLane = 1; // The lane the player wants to be in: 0 = left, 1 = center, 2 = right
     public float laneChangeSpeed = 20f; // How fast the player switches lanes
@@ -17,6 +18,10 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
     public float gravity = -40f; // Gravity applied when falling
     private Vector3 direction; // Stores the player's movement direction
 
+
+    private bool isSliding = false; // Track if we're currently sliding
+    public float slideDuration = 1.533f; // How long the slide lasts
+    private float slideTimer = 0f; // Timer to track slide duration
     // -------------------- Camera Settings --------------------
     [Header("Camera")]
     public Transform mainCamera; // Reference to the main camera in the scene
@@ -51,6 +56,9 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
             
             // Ensure the controller is enabled
             if (controller != null) controller.enabled = true;
+
+
+            playerAnimator = spawned.GetComponent<Animator>();
         }
   
         // Set up the camera to be behind and above the player (fixed position)
@@ -81,9 +89,29 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
     // -------------------- Player movement and jumping --------------------
     void RunLogic()
     {
+
+
         // Handle lane switching with left/right arrow keys
         if (Input.GetKeyDown(KeyCode.RightArrow)) desiredLane = Mathf.Min(desiredLane + 1, 2);
         if (Input.GetKeyDown(KeyCode.LeftArrow)) desiredLane = Mathf.Max(desiredLane - 1, 0);
+
+
+    // Handle sliding with down arrow key
+    if (Input.GetKeyDown(KeyCode.DownArrow) && controller.isGrounded && !isSliding)
+    {
+        isSliding = true;
+        slideTimer = slideDuration; // Start the slide timer
+    }
+
+    // Update slide timer
+    if (isSliding)
+    {
+        slideTimer -= Time.deltaTime;
+        if (slideTimer <= 0f)
+        {
+            isSliding = false; // End the slide
+        }
+    }
 
         // Update the shared current lane
         CurrentLane = desiredLane;
@@ -119,6 +147,15 @@ public class EndlessRunnerGame : InfiniteRunnerBase // Inherit from GameBase ins
         {
             controller.Move(moveVector);
         }
+
+
+        // Set animation based on grounded state
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool("IsJumping", !controller.isGrounded);
+            playerAnimator.SetBool("IsSliding", isSliding); 
+        }
+
     }
 
     // -------------------- Make the camera follow the player --------------------

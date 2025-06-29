@@ -231,9 +231,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardSpeed: 10
   playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
-  laneChangeSpeed: 10
+  laneChangeSpeed: 20
   jumpForce: 25
   gravity: -40
+  slideDuration: 1
   mainCamera: {fileID: 406013762}
   scoreText: {fileID: 102578208}
 --- !u!4 &400663668
@@ -267,7 +268,9 @@ MonoBehaviour:
   tilePrefab: {fileID: 3555129088345802245, guid: 482b79a15d4b3b1ac85bfe4c7b369511, type: 3}
   collisionPrefab: {fileID: 0}
   numberOfTiles: 6
-  tileLength: 30
+  buoyPrefab: {fileID: 6270445062193882788, guid: 6744ecf1190f709dda6a461ff0e33b80, type: 3}
+  buoySpacing: 10
+  buoyOffset: 2
   obstaclePrefabs:
   - {fileID: 2952796528952022713, guid: c83a333ef0104f007b14cd0976ad1d72, type: 3}
   distanceBetween: 15
