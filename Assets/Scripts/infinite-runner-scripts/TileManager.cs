@@ -75,7 +75,6 @@ public class TileManager : InfiniteRunnerBase
             
             collisionTile.name = $"CollisionTile_{i}";
             collisionTiles.Add(collisionTile);
-            Debug.Log($"Created collision tile {i} at position: {collisionPos}");
         }
     }
 
@@ -148,7 +147,6 @@ public class TileManager : InfiniteRunnerBase
             Vector3 newPos = furthestVisualTile.transform.position;
             newPos.z = furthestForwardZ + tileLength;
             furthestVisualTile.transform.position = newPos;
-            Debug.Log($"Recycled visual tile to Z={newPos.z}");
         }
 
         if (furthestCollisionTile != null && furthestCollisionZ < -tileLength)
@@ -166,7 +164,6 @@ public class TileManager : InfiniteRunnerBase
             Vector3 newPos = furthestCollisionTile.transform.position;
             newPos.z = furthestForwardZ + tileLength;
             furthestCollisionTile.transform.position = newPos;
-            Debug.Log($"Recycled collision tile to Z={newPos.z}");
         }
     }
 } 

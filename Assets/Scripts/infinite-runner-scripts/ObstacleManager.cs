@@ -65,14 +65,6 @@ public class ObstacleManager : InfiniteRunnerBase
             Vector3 spawnPos = new Vector3(RandomLaneX(), 3.4f, spawnZ);
             GameObject spawnedObstacle = Instantiate(obstacle, spawnPos, Quaternion.identity);
             
-            // Check if this obstacle is an enemy and initialize it properly
-            EnemyController enemyController = spawnedObstacle.GetComponent<EnemyController>();
-            if (enemyController != null)
-            {
-                // Initialize the enemy as an obstacle
-                enemyController.OnSpawnedAsObstacle();
-                Debug.Log($"Spawned enemy obstacle at {spawnPos}");
-            }
             
             // Track the spawned obstacle in our list
             spawnedObstacles.Add(spawnedObstacle);
