@@ -11,7 +11,7 @@ public class TileManager : InfiniteRunnerBase
     [Header("Tile Settings")]
     public GameObject tilePrefab;    // The prefab to use for creating tiles
     public GameObject collisionPrefab; // Optional: separate collision-only prefab
-    public int numberOfTiles = 6;   // How many tiles to keep active at once
+    public int numberOfTiles = 10;   // How many tiles to keep active at once
     private float tileLength; // Will be calculated from prefab bounds
 
     // List to keep track of all active tiles in the scene
@@ -29,7 +29,7 @@ public class TileManager : InfiniteRunnerBase
             Renderer tileRenderer = tilePrefab.GetComponent<Renderer>();
             if (tileRenderer != null)
             {
-                tileLength = tileRenderer.bounds.size.z; // Get Z-dimension (depth)
+                tileLength = tileRenderer.bounds.size.z/1.2f; // Get Z-dimension (depth)
             }
             else
             {

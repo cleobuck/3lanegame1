@@ -249,7 +249,7 @@ MonoBehaviour:
   forwardSpeed: 19
   tilePrefab: {fileID: 3555129088345802245, guid: 482b79a15d4b3b1ac85bfe4c7b369511, type: 3}
   collisionPrefab: {fileID: 0}
-  numberOfTiles: 6
+  numberOfTiles: 10
 --- !u!114 &400663670
 MonoBehaviour:
   m_ObjectHideFlags: 0
