@@ -38,7 +38,6 @@ public class BuoyManager : InfiniteRunnerBase
         }
         
         lastBuoyZ = endZ; // Don't add buoySpacing here - next buoy should be at endZ + buoySpacing
-        // Debug.Log($"Initial buoys spawned from {startZ} to {endZ}. Next spawn at: {lastBuoyZ + buoySpacing}");
     }
 
     // -------------------- Spawn and manage buoys --------------------
@@ -52,13 +51,11 @@ public class BuoyManager : InfiniteRunnerBase
             LaneToWorldX(2) + buoyOffset  // Right of lane 2 (6)
         };
         
-        // Debug.Log($"Spawning buoys at Z={zPosition}. Lane positions: {LaneToWorldX(0)}, {LaneToWorldX(1)}, {LaneToWorldX(2)}");
         
         // Spawn a buoy at each X position for this Z position
         foreach (float x in xPositions)
         {
             Vector3 buoyPos = new Vector3(x, 5f, zPosition); // Y=5 to be above collision tiles (2.4f)
-            // Debug.Log($"Spawning buoy at position: {buoyPos}");
             GameObject buoy = Instantiate(buoyPrefab, buoyPos, Quaternion.identity);
             buoy.name = $"Buoy_Z{zPosition}_X{x}";
             spawnedBuoys.Add(buoy);
@@ -89,7 +86,6 @@ public class BuoyManager : InfiniteRunnerBase
                 // Remove buoys that have passed too far behind
                 if (buoy.transform.position.z < -60f) // Increased cleanup distance
                 {
-                    // Debug.Log($"Destroying buoy at Z={buoy.transform.position.z}");
                     Destroy(buoy);
                     spawnedBuoys.RemoveAt(i);
                 }

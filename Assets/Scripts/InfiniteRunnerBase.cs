@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; // For working with the UI (Text score display)
 
 /// Base class for all game-related scripts to inherit from.
 /// Contains shared variables and common functionality.
@@ -10,6 +11,7 @@ public class InfiniteRunnerBase : MonoBehaviour
     protected static float gameScore = 0f;
     protected static bool isGameRunning = true;
     protected static int currentLane = 1; // 0=left, 1=center, 2=right
+    protected static int moneyAmount = 0; // Money collected by the player
     
     // -------------------- Shared Settings --------------------
     [Header("Shared Settings")]
@@ -17,7 +19,7 @@ public class InfiniteRunnerBase : MonoBehaviour
     
     [Header("World Speed")]
     [Range(1f, 50f)] // Creates a slider in the Inspector!
-    public float forwardSpeed = 19f; // PUBLIC so it shows in Inspector
+    public float forwardSpeed = 5f; // PUBLIC so it shows in Inspector (but only for base class via custom editor)
     
     // Static reference to access the speed from anywhere
     protected static InfiniteRunnerBase instance;
@@ -35,10 +37,16 @@ public class InfiniteRunnerBase : MonoBehaviour
         set { gameScore = value; } 
     }
 
+    public static int MoneyAmount 
+    { 
+        get { return moneyAmount; } 
+        set { moneyAmount = value; } 
+    }
+
     public static float ForwardSpeed 
-{ 
-    get { return instance != null ? instance.forwardSpeed : 10f; } 
-}
+    { 
+        get { return instance != null ? instance.forwardSpeed : 5f; } 
+    }
     
     public static bool IsGameRunning 
     { 
@@ -51,8 +59,6 @@ public class InfiniteRunnerBase : MonoBehaviour
         get { return currentLane; } 
         set { currentLane = Mathf.Clamp(value, 0, 2); } // Keep in valid range
     }
-    
-
     
     // -------------------- Shared Helper Methods --------------------
     
@@ -76,11 +82,18 @@ public class InfiniteRunnerBase : MonoBehaviour
         gameScore = worldDistance; // Score = distance traveled
     }
     
+    /// Check if this is the base InfiniteRunnerBase class (used by custom editor)
+    public bool IsBaseClass()
+    {
+        return this.GetType() == typeof(InfiniteRunnerBase);
+    }
+    
     // -------------------- Unity Events --------------------
     protected virtual void Awake()
     {
-        // Set up the static instance reference
-        if (instance == null)
+        // Only set the static instance if this is the BASE InfiniteRunnerBase class
+        // This ensures forwardSpeed comes from the correct component
+        if (instance == null && this.GetType() == typeof(InfiniteRunnerBase))
         {
             instance = this;
         }
@@ -88,11 +101,11 @@ public class InfiniteRunnerBase : MonoBehaviour
     
     protected virtual void Start()
     {
-        // Override in child classes if needed
+        // Base functionality - can be overridden by child classes
     }
     
     protected virtual void Update()
     {
-        // Override in child classes if needed
+        // Base functionality - can be overridden by child classes
     }
 } 
