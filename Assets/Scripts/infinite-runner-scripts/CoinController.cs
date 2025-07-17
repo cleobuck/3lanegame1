@@ -10,8 +10,10 @@ public class CoinController : InfiniteRunnerBase
     public int coinValue = 1; // How much money this coin is worth
     public float coinHeight = 5f; // Height above ground (higher than obstacles)
     
-    private void Start()
+    protected override void Start()
     {
+        base.Start(); // Call the base class Start method
+        
         // Override the Y position to make coins appear higher than obstacles
         Vector3 currentPos = transform.position;
         transform.position = new Vector3(currentPos.x, coinHeight, currentPos.z);
@@ -40,6 +42,7 @@ public class CoinController : InfiniteRunnerBase
     
     private void Update()
     {
+        base.Update();
         // Optional: Add coin rotation animation for visual appeal
         transform.Rotate(0, 90f * Time.deltaTime, 0);
     }

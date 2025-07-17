@@ -186,17 +186,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102578207}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
+  m_LocalScale: {x: 0.80555, y: 0.80555, z: 0.80555}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 576683842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 524, y: -20}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -575.3, y: -245.3}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &400663666
 GameObject:
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f87c02fce9a036b203e214883d9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 31.8
+  forwardSpeed: 39.4
 --- !u!114 &400663674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,8 +352,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   scorePrefix: 'Score: '
   showFloatScore: 0
-  moneyText: {fileID: 0}
-  moneyPrefix: '$: '
+  moneyText: {fileID: 102578208}
 --- !u!1 &406013761
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +458,7 @@ GameObject:
   - component: {fileID: 576683840}
   - component: {fileID: 576683839}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MoneyCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
