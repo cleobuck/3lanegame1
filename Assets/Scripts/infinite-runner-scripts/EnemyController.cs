@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         // Find the PlayerController in the scene
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindFirstObjectByType<PlayerController>();
         
         // Set enemy rotation to face the player
         transform.rotation = Quaternion.Euler(0, 180, 0);

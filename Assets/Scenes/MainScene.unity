@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4e827526bfed7834aa1629ab766bb4b3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f7e0744a7c4cb5b349828e363dd6daa7, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 400663674}
   - component: {fileID: 400663675}
   - component: {fileID: 400663676}
+  - component: {fileID: 400663677}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -251,7 +252,7 @@ MonoBehaviour:
   forwardSpeed: 19
   tilePrefab: {fileID: 3555129088345802245, guid: 482b79a15d4b3b1ac85bfe4c7b369511, type: 3}
   collisionPrefab: {fileID: 0}
-  numberOfTiles: 10
+  numberOfTiles: 20
 --- !u!114 &400663670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f87c02fce9a036b203e214883d9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 39.4
+  forwardSpeed: 46.8
 --- !u!114 &400663674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,10 +333,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69714a868dc99f1448c59591405fab47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 19
+  forwardSpeed: 5
   mainCamera: {fileID: 406013762}
-  cameraHeight: 5
-  cameraDistance: 10
+  cameraHeight: 8
+  cameraDistance: 20
+  addCameraLight: 1
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 0.9
+  lightAngleFromRight: 57.7
+  lightVerticalAngle: -16
+  castShadows: 1
 --- !u!114 &400663676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +360,19 @@ MonoBehaviour:
   scorePrefix: 'Score: '
   showFloatScore: 0
   moneyText: {fileID: 102578208}
+--- !u!114 &400663677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400663666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21bde378f101b3f8b7ba223eacbaffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
 --- !u!1 &406013761
 GameObject:
   m_ObjectHideFlags: 0
