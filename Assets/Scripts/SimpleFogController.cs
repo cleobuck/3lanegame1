@@ -58,7 +58,7 @@ public class SimpleFogController : MonoBehaviour
         playerCamera = Camera.main;
         if (playerCamera == null)
         {
-            playerCamera = FindObjectOfType<Camera>();
+            playerCamera = FindFirstObjectByType<Camera>();
         }
 
         // Store base values

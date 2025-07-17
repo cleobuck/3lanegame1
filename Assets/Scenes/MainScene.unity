@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 19
-  playerPrefab: {fileID: 3027620449444985203, guid: 6e911500e5d05a17cb2665ec234e858b, type: 3}
+  playerPrefab: {fileID: 7175173670098729767, guid: eec7f5a5fd51468e9b3e561419740f63, type: 3}
   laneChangeSpeed: 20
   jumpForce: 25
   gravity: -40

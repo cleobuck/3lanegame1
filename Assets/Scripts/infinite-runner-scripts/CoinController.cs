@@ -40,7 +40,7 @@ public class CoinController : InfiniteRunnerBase
         }
     }
     
-    private void Update()
+    protected override void Update()
     {
         base.Update();
         // Optional: Add coin rotation animation for visual appeal
